@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	listener, _ := net.Listen("tcp", "[::1]:8080")
+	listener, _ := net.Listen("tcp", "[::1]:8081")
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
@@ -22,8 +22,8 @@ func handleClient(conn net.Conn) {
 	defer conn.Close()
 
 	for {
-		writeTo(conn, strconv.Itoa(int(time.Now().Unix())))
-		time.Sleep(1 * time.Second)
+		writeTo(conn, strconv.Itoa(int(time.Now().UnixMilli())))
+		time.Sleep(300 * time.Millisecond)
 	}
 }
 

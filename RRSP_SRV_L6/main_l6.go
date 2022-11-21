@@ -1,8 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"net"
+	"strconv"
+	"time"
 )
 
 func main() {
@@ -15,11 +16,10 @@ func main() {
 func handleClient(conn *net.UDPConn) {
 	buf := make([]byte, 128)
 
-	readLen, addr, err := conn.ReadFromUDP(buf)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	_, addr, _ := conn.ReadFromUDP(buf)
+	for {
+		conn.WriteToUDP([]byte(strconv.Itoa(int(time.Now().UnixMilli()))), addr)
 
-	conn.WriteToUDP(append([]byte("Hello, you said: "), buf[:readLen]...), addr)
+		time.Sleep(200 * time.Millisecond)
+	}
 }

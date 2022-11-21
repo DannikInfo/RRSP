@@ -69,8 +69,8 @@ func readFrom(conn net.Conn) {
 
 		if string(buf[:readLen]) != "OK" {
 			i, _ := strconv.ParseInt(string(buf[:readLen]), 10, 64)
-			tm := time.Unix(i, 0)
-			fmt.Println(tm)
+			//tm := time.Unix(i, 0)
+			fmt.Println(i) //, tm)
 		}
 		count = 0
 	}
